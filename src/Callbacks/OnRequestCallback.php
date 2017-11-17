@@ -66,8 +66,12 @@ class OnRequestCallback extends \Nette\Object
 			}
 		}
 
-		newrelic_name_transaction($action);
-		newrelic_disable_autorum();
+		if (PHP_SAPI === 'cli') {
+			newrelic_name_transaction('$ ' . basename($_SERVER['argv'][0]) . ' ' . implode(' ', array_slice($_SERVER['argv'], 1)));
+		} else {
+			newrelic_name_transaction($action);
+			newrelic_disable_autorum();
+		}
 	}
 
 	/**
