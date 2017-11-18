@@ -38,7 +38,7 @@ class OnRequestCallback extends \Nette\Object
 	public function __invoke(Application $application, Request $request)
 	{
 		if (PHP_SAPI === 'cli') {
-			newrelic_background_job(TRUE);
+			// newrelic_background_job(TRUE); newrelic free tier hides background transactions
 		}
 
 		$params = $request->getParameters();
